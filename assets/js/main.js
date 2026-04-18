@@ -27,11 +27,19 @@
     });
   }
 
-  // Reveal on scroll
+  // Hero parallax
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    window.addEventListener('scroll', () => {
+      hero.style.setProperty('--hero-parallax', `${window.scrollY * 0.25}px`);
+    }, { passive: true });
+  }
+
+  // Reveal on scroll (up, left, right)
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
 
   // FAQ
   document.querySelectorAll('.faq-item').forEach(item => {
